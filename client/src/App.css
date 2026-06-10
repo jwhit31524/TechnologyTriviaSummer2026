@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow: hidden;
+  background: #03001e;
+}
+
+.app {
+  width: 100vw;
+  height: 100vh;
+}

@@ -1,0 +1,189 @@
+.question-screen {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(160deg, #04061a 0%, #0b0c2a 40%, #08091f 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 20px;
+  font-family: 'Exo 2', sans-serif;
+  overflow-y: auto;
+}
+
+/* Progress bar */
+.q-header {
+  width: 100%;
+  max-width: 860px;
+  margin-bottom: 22px;
+}
+
+.progress-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00d4ff, #c026d3);
+  border-radius: 10px;
+  transition: width 0.5s ease;
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.55);
+}
+
+.q-counter {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.85rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+/* Question card */
+.q-card {
+  width: 100%;
+  max-width: 860px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(0, 212, 255, 0.14);
+  border-radius: 20px;
+  padding: 34px 36px 28px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  animation: card-enter 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.q-badge {
+  display: inline-block;
+  padding: 4px 14px;
+  background: linear-gradient(90deg, rgba(0,212,255,0.12), rgba(192,38,211,0.12));
+  border: 1px solid rgba(0, 212, 255, 0.35);
+  border-radius: 20px;
+  color: #00d4ff;
+  font-family: 'Orbitron', monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 18px;
+}
+
+.q-text {
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.55;
+  margin-bottom: 28px;
+}
+
+/* Answer buttons */
+.answers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.answer-btn {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 15px 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+  color: rgba(255, 255, 255, 0.83);
+  font-family: 'Exo 2', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.answer-btn:hover:not(:disabled) {
+  background: rgba(0, 212, 255, 0.07);
+  border-color: rgba(0, 212, 255, 0.32);
+  transform: translateX(5px);
+  box-shadow: 0 0 18px rgba(0, 212, 255, 0.09);
+}
+
+.answer-letter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 34px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 50%;
+  font-family: 'Orbitron', monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #00d4ff;
+  flex-shrink: 0;
+  margin-top: 1px;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.answer-body { flex: 1; }
+
+/* ── State variants ── */
+.answer-btn.correct {
+  background: rgba(34, 197, 94, 0.14);
+  border-color: #22c55e;
+  color: #fff;
+  box-shadow: 0 0 22px rgba(34, 197, 94, 0.22);
+  animation: pop 0.3s ease both;
+}
+.answer-btn.correct .answer-letter {
+  background: #22c55e;
+  border-color: #22c55e;
+  color: #fff;
+}
+
+.answer-btn.wrong {
+  background: rgba(239, 68, 68, 0.14);
+  border-color: #ef4444;
+  color: #fff;
+  box-shadow: 0 0 22px rgba(239, 68, 68, 0.22);
+  animation: shake 0.4s ease both;
+}
+.answer-btn.wrong .answer-letter {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: #fff;
+}
+
+.answer-btn.reveal {
+  background: rgba(34, 197, 94, 0.08);
+  border-color: rgba(34, 197, 94, 0.38);
+}
+.answer-btn.reveal .answer-letter {
+  color: #22c55e;
+  border-color: rgba(34, 197, 94, 0.6);
+}
+
+.answer-btn.faded {
+  opacity: 0.35;
+}
+
+/* ── Keyframes ── */
+@keyframes card-enter {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-7px); }
+  40%       { transform: translateX(7px); }
+  60%       { transform: translateX(-5px); }
+  80%       { transform: translateX(5px); }
+}

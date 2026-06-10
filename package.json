@@ -1,0 +1,13 @@
+{
+  "name": "vscode-trivia-game",
+  "version": "1.0.0",
+  "description": "Technology Trivia Game — MVC Architecture",
+  "scripts": {
+    "install-all": "npm install && cd server && npm install && cd ../client && npm install",
+    "dev": "concurrently -n server,client -c cyan,magenta \"cd server && node server.js\" \"cd client && npm run dev\"",
+    "start": "npm run dev"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
