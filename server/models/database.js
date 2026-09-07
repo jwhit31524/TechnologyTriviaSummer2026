@@ -28,11 +28,22 @@ db.exec(`
 
 const questionCount = db.prepare('SELECT COUNT(*) as n FROM questions').get().n;
 
+const insertQ = db.prepare('INSERT INTO questions (question_text) VALUES (?)');
+const insertA = db.prepare(
+  'INSERT INTO answers (question_id, answer_text, is_correct, answer_letter) VALUES (?, ?, ?, ?)'
+);
+
+const insertQuestion = (q) => {
+  const exists = db.prepare('SELECT id FROM questions WHERE question_text = ?').get(q.text);
+  if (!exists) {
+    const { lastInsertRowid } = insertQ.run(q.text);
+    for (const a of q.answers) {
+      insertA.run(lastInsertRowid, a.text, a.correct, a.letter);
+    }
+  }
+};
+
 if (questionCount === 0) {
-  const insertQ = db.prepare('INSERT INTO questions (question_text) VALUES (?)');
-  const insertA = db.prepare(
-    'INSERT INTO answers (question_id, answer_text, is_correct, answer_letter) VALUES (?, ?, ?, ?)'
-  );
 
   const seedData = [
     {
@@ -83,18 +94,61 @@ if (questionCount === 0) {
         { letter: 'C', text: 'Firmware is similar to hardware', correct: 0 },
       ],
     },
+    {
+      text: 'What does === (triple equals) mean in JavaScript?',
+      answers: [
+        { letter: 'A', text: 'It assigns a value to a variable', correct: 0 },
+        {
+          letter: 'B',
+          text: 'It checks if two values are equal, automatically converting types if needed (loose equality)',
+          correct: 0,
+        },
+        {
+          letter: 'C',
+          text: 'Strict equality — it checks that both the value AND the data type match exactly, with no automatic type conversion. For example, 5 === "5" is false because one is a number and the other is a string.',
+          correct: 1,
+        },
+      ],
+    },
   ];
 
   db.exec('BEGIN');
   try {
     for (const q of seedData) {
-      const { lastInsertRowid } = insertQ.run(q.text);
-      for (const a of q.answers) {
-        insertA.run(lastInsertRowid, a.text, a.correct, a.letter);
-      }
+      insertQuestion(q);
     }
     db.exec('COMMIT');
     console.log('Database seeded with trivia questions.');
+  } catch (err) {
+    db.exec('ROLLBACK');
+    throw err;
+  }
+} else {
+  // Add any questions missing from an existing database
+  const newQuestions = [
+    {
+      text: 'What does === (triple equals) mean in JavaScript?',
+      answers: [
+        { letter: 'A', text: 'It assigns a value to a variable', correct: 0 },
+        {
+          letter: 'B',
+          text: 'It checks if two values are equal, automatically converting types if needed (loose equality)',
+          correct: 0,
+        },
+        {
+          letter: 'C',
+          text: 'Strict equality — it checks that both the value AND the data type match exactly, with no automatic type conversion. For example, 5 === "5" is false because one is a number and the other is a string.',
+          correct: 1,
+        },
+      ],
+    },
+  ];
+  db.exec('BEGIN');
+  try {
+    for (const q of newQuestions) {
+      insertQuestion(q);
+    }
+    db.exec('COMMIT');
   } catch (err) {
     db.exec('ROLLBACK');
     throw err;

@@ -8,6 +8,8 @@
     "start": "npm run dev"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.4.1",
     "concurrently": "^8.2.2"
   }
 }
