@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import HomeScreen from './components/HomeScreen';
 import QuestionScreen from './components/QuestionScreen';
 import ResultScreen from './components/ResultScreen';
+import ContactScreen from './components/ContactScreen';
 
 function App() {
   const [screen, setScreen] = useState('home');
@@ -48,7 +49,10 @@ function App() {
   return (
     <div className="app">
       {screen === 'home' && (
-        <HomeScreen onBegin={startGame} dataInfo={dataInfo} />
+        <HomeScreen onBegin={startGame} dataInfo={dataInfo} onTryToContact={() => setScreen('contact')} />
+      )}
+      {screen === 'contact' && (
+        <ContactScreen onBack={() => setScreen('home')} />
       )}
       {screen === 'game' && questions.length > 0 && (
         <QuestionScreen

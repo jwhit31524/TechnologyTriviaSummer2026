@@ -3,7 +3,7 @@ import './HomeScreen.css';
 
 const ICONS = ['💻', '⚡', '🚀', '🔧', '📡', '🖥️'];
 
-function HomeScreen({ onBegin, dataInfo }) {
+function HomeScreen({ onBegin, dataInfo, onTryToContact }) {
   const particles = useMemo(() =>
     Array.from({ length: 22 }, (_, i) => ({
       left: `${(i * 17 + 3) % 100}%`,
@@ -55,6 +55,11 @@ function HomeScreen({ onBegin, dataInfo }) {
 
         <button className="begin-btn" onClick={onBegin}>
           <span className="btn-label">Begin Game</span>
+          <span className="btn-arrow" aria-hidden="true">→</span>
+        </button>
+
+          <button className="contactus-btn" onClick={onTryToContact}>
+          <span className="btn-label">Contact Us</span>
           <span className="btn-arrow" aria-hidden="true">→</span>
         </button>
 

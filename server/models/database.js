@@ -24,6 +24,15 @@ db.exec(`
     total_questions INTEGER NOT NULL,
     played_at DATETIME DEFAULT CURRENT_TIMESTAMP
   );
+
+  CREATE TABLE IF NOT EXISTS contact_submissions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    question TEXT NOT NULL,
+    submitted_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  );
 `);
 
 const questionCount = db.prepare('SELECT COUNT(*) as n FROM questions').get().n;

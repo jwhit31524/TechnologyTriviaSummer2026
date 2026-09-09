@@ -219,6 +219,29 @@
   animation: fade-up 1.3s ease 0.45s both, btn-pulse 3.5s ease-in-out 2s infinite;
 }
 
+.contactus-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.65);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  animation: fade-up 1.3s ease 0.45s both;
+}
+
+.contactus-btn:hover {
+  color: rgba(255, 255, 255, 0.95);
+  border-color: rgba(0, 212, 255, 0.45);
+  background: rgba(0, 212, 255, 0.07);
+}
 .begin-btn::before {
   content: '';
   position: absolute;
